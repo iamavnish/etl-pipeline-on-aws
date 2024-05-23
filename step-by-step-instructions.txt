@@ -1,0 +1,52 @@
+- Sign in to AWS account
+
+- Launch an EC2 Instance (Airflow Server)
+  Instance Type: t2.medium (t2.micro wouldn't work)
+  OS: Ubuntu
+  Create Key Pair (airflow_ec2_key.pem)
+
+- Connect to Instance (using private key and SSH Client)
+  ssh -i "airflow_ec2_key.pem" <username>@<hostname of EC2 Instance>
+  
+- Run below commands on EC2 instance
+  sudo apt-get update
+  sudo apt install python3-pip
+  sudo python3 -m venv twitter-etl-venv
+  source twitter-etl-venv/bin/activate
+  sudo twitter-etl-venv/bin/pip install apache-airflow
+  sudo twitter-etl-venv/bin/pip install pandas
+  sudo twitter-etl-venv/bin/pip install s3fs
+
+- Start Airflow:
+  airflow standalone
+  
+- Note down username and password for Airflow
+
+- Update Security Group. 
+  Add a rule to allow (All traffic) on (all ports) from (My IP)
+  
+- Access Airflow UI 
+  http://<hostname of EC2 Instance>:8080
+  For troubleshooting, from cmd: telnet <IP of EC2 Instance> 8080
+  
+- Create S3 bucket (twitter-etl-bucket-avnish)
+
+- mkdir airflow/twitter_dags
+  mkdir incoming processing processed
+
+- Update below property in configuration file of Airflow (airflow.cfg)
+  dags_folder = /home/<username>/airflow/twitter_dags
+
+- copy twiter_etl.py, twitter_dag.py, file_transfer.sh and tweets.csv in twitter_dags folder
+  scp -i ./airflow_ec2_key.pem ./tweets.csv <username>@<hostnme of EC2 Instance>:/home/<username>/incoming
+  scp -i ./airflow_ec2_key.pem ./twitter_dag.py <username>@<hostnme of EC2 Instance>:/home/<username>/airflow/twitter_dags
+  scp -i ./airflow_ec2_key.pem ./twiter_etl.py <username>@<hostnme of EC2 Instance>:/home/<username>/airflow/twitter_dags
+  scp -i ./airflow_ec2_key.pem ./file_transfer.sh <username>@<hostnme of EC2 Instance>:/home/<username>/airflow/twitter_dags
+  
+- Add an IAM Role for EC2 instance to write to S3 bucket (ec2_s3_role)
+
+- Trigger the DAG, twitter_dag manually from Airflow UI.
+
+
+ 
+

@@ -17,3 +17,7 @@ This is Proof of Concept for ETL (Extract Transform Load) pipeline on AWS.
 - Apache Airflow (hosted on EC2)
 - Python3
 
+## Data Set
+
+CSV file containing twitter data
+

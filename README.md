@@ -19,5 +19,5 @@ This is Proof of Concept for ETL (Extract Transform Load) pipeline on AWS.
 
 ## Data Set
 
-CSV file containing twitter data - 
+CSV file containing twitter data - https://github.com/iamavnish/etl-pipeline/blob/main/tweets.csv
 

@@ -11,6 +11,9 @@ This is Proof of Concept for ETL (Extract Transform Load) pipeline on AWS.
 ## Tech Stack
 
 - AWS
+  - EC2
+  - S3
+  - IAM
 - Apache Airflow (hosted on EC2)
 - Python3
 

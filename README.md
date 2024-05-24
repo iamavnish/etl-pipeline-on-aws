@@ -21,3 +21,7 @@ This is Proof of Concept for ETL (Extract Transform Load) pipeline on AWS.
 
 CSV file containing twitter data - https://github.com/iamavnish/etl-pipeline/blob/main/tweets.csv
 
+## Solution
+
+A file transfer job pushes CSV files (one at a time) containing tweets to a location from where it is being extracted by an ETL job which further does some row level transformations and loads the file into S3. For the ETL process to be successful, the file transfer job must complete successfully before the ETL job starts. Apache Airflow hosted on EC2 is being used for workflow orchestration.
+
